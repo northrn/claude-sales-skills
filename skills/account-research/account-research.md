@@ -24,6 +24,21 @@ Generate a comprehensive research dossier on a single company to prepare for out
 
 ONLY use `mcp__exa__web_search_advanced_exa`. Load it via ToolSearch first.
 
+## Deep Research Mode
+
+Use Exa's advanced parameters for comprehensive research:
+
+```
+Key parameters for deep research:
+- type: "deep"           # Comprehensive search (vs "fast" or "auto")
+- subpages: 3-5          # Crawl subpages from main results
+- subpageTarget: [...]   # Target specific pages like "about", "team", "careers"
+- livecrawl: "preferred" # Get fresh data, fall back to cache
+- enableSummary: true    # AI-generated summaries
+- enableHighlights: true # Extract key passages
+- numResults: 15-30      # More results for better coverage
+```
+
 ## Token Isolation (Critical)
 
 Never run Exa searches in main context. Always spawn Task agents with model "haiku":
@@ -47,10 +62,15 @@ Spawn Task agent:
 
 ```
 Use mcp__exa__web_search_advanced_exa with:
+- type: "deep"
 - category: "company"
 - query: "[Company Name]"
-- numResults: 5
+- numResults: 10
 - enableSummary: true
+- enableHighlights: true
+- livecrawl: "preferred"
+- subpages: 3
+- subpageTarget: ["about", "company", "team", "investors"]
 
 Extract:
 - Official company description
@@ -61,6 +81,8 @@ Extract:
 - Revenue (if available)
 - Stock ticker (if public)
 - Parent company (if subsidiary)
+- Key investors/board members
+- Mission/vision statement
 ```
 
 ### Step 3: Key People
@@ -69,9 +91,16 @@ Spawn Task agent:
 
 ```
 Use mcp__exa__web_search_advanced_exa with:
+- type: "deep"
 - category: "people"
-- query: "[Company Name] CEO founder VP director"
-- numResults: 20
+- query: "[Company Name] CEO founder VP director executive"
+- numResults: 25
+- enableSummary: true
+- livecrawl: "preferred"
+
+Run additional queries in parallel:
+- "[Company Name] leadership team"
+- "[Company Name] head of marketing sales"
 
 Find and return for each person:
 - First Name
@@ -80,6 +109,7 @@ Find and return for each person:
 - LinkedIn URL
 - Tenure (if visible)
 - Previous company (if notable)
+- Recent content they've published (for personalization)
 
 Prioritize:
 1. C-Suite (CEO, CTO, CFO, CMO, CRO)
@@ -94,20 +124,26 @@ Spawn Task agent:
 
 ```
 Use mcp__exa__web_search_advanced_exa with:
-- category: "company"
-- query: "[Company Name] tech stack tools uses"
-- numResults: 10
+- type: "deep"
+- query: "[Company Name] tech stack tools software"
+- numResults: 15
+- enableSummary: true
+- enableHighlights: true
+- livecrawl: "preferred"
+- includeDomains: ["stackshare.io", "builtwith.com", "wappalyzer.com"]
 
-Also search:
-- "[Company Name] site:stackshare.io"
-- "[Company Name] careers engineering stack"
+Also run parallel searches:
+- "[Company Name] careers engineering stack requirements"
+- "[Company Name] integrations partners"
 
 Extract technologies in categories:
 - CRM (Salesforce, HubSpot, etc.)
 - Marketing (Marketo, Mailchimp, etc.)
 - Analytics (Mixpanel, Amplitude, etc.)
+- Data/BI (Snowflake, Looker, etc.)
 - Infrastructure (AWS, GCP, Azure)
 - Communication (Slack, Teams)
+- Dev tools (GitHub, Jira, etc.)
 - Other relevant tools
 ```
 
@@ -117,10 +153,19 @@ Spawn Task agent:
 
 ```
 Use mcp__exa__web_search_advanced_exa with:
+- type: "deep"
 - category: "news"
 - query: "[Company Name]"
-- numResults: 15
-- startPublishedDate: 6 months ago
+- numResults: 20
+- startPublishedDate: 6 months ago (YYYY-MM-DD format)
+- enableSummary: true
+- enableHighlights: true
+- highlightsQuery: "announcement funding launch hire"
+- livecrawl: "always"
+
+Run parallel search for financial news:
+- category: "financial report"
+- query: "[Company Name] earnings revenue"
 
 Categorize news by type:
 - Funding rounds
@@ -131,35 +176,45 @@ Categorize news by type:
 - Layoffs or restructuring
 - Awards or recognition
 - Expansion (new offices, markets)
+- Earnings/financial updates
 
 Return:
 - Headline
 - Date
 - Category
-- Key takeaway
+- Key takeaway (why this matters for outreach)
 - Source URL
 ```
 
-### Step 6: Social Presence
+### Step 6: Social Presence & Content
 
 Spawn Task agent:
 
 ```
 Use mcp__exa__web_search_advanced_exa with:
+- type: "deep"
 - category: "tweet"
 - query: "[Company Name] OR @[company handle]"
-- numResults: 10
+- numResults: 15
+- livecrawl: "preferred"
+
+Run parallel searches:
+- category: "personal site"
+- query: "[CEO/Founder Name] blog podcast interview"
 
 Also search for:
 - Company LinkedIn page activity
-- CEO/founder social presence
+- CEO/founder thought leadership
 - Recent podcast appearances
 - Conference talks
+- Blog posts by executives
 
 Extract:
 - Key themes they talk about
 - Tone and positioning
 - Recent announcements via social
+- Content that can be referenced in outreach
+- Personal interests of key executives
 ```
 
 ### Step 7: Competitive Context
@@ -168,18 +223,24 @@ Spawn Task agent:
 
 ```
 Use mcp__exa__web_search_advanced_exa with:
-- query: "[Company Name] vs competitors alternatives"
-- numResults: 10
+- type: "deep"
+- query: "[Company Name] vs competitors alternatives comparison"
+- numResults: 15
+- enableSummary: true
+- enableHighlights: true
+- highlightsQuery: "compared to versus alternative better than"
 
-Also search:
-- "[Company Name] competitor"
+Run parallel searches:
+- "[Company Name] competitor analysis"
 - "companies like [Company Name]"
-- "[Company Name] alternative"
+- "[Company Name] alternative review"
 
 Extract:
-- Main competitors
-- How they differentiate
+- Main competitors (direct and indirect)
+- How they differentiate (their claimed positioning)
 - Market position (leader, challenger, niche)
+- Where they win vs. lose
+- Pricing comparison (if available)
 ```
 
 ### Step 8: Synthesize Pain Points

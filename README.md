@@ -13,6 +13,8 @@ These skills extend [Claude Code](https://claude.ai/code) with specialized capab
 | [Meeting Prep](skills/meeting-prep/) | Pre-call brief with attendee profiles, questions, objection handling | "prep me for call with", "meeting prep" |
 | [Email Writer](skills/email-writer/) | Personalized cold emails with A/B variants and follow-up sequences | "write cold email to", "personalize email" |
 | [Competitor Intel](skills/competitor-intel/) | Competitive landscape mapping and sales battlecards | "analyze competitors", "battlecard for" |
+| [Discovery Questions](skills/discovery-questions/) | Tailored SPIN questions by role, industry, and context | "discovery questions for", "what should I ask" |
+| [Proposal Writer](skills/proposal-writer/) | Generate proposals from call notes with pricing options | "write proposal for", "create proposal" |
 
 ## How They Work Together
 
@@ -26,11 +28,17 @@ Day 2: "research Wealthsimple"
 Day 3: "write cold email to Sarah at Wealthsimple"
        → 3 personalized email variants + follow-up sequence
 
-Day 4: "prep me for call with Wealthsimple"
-       → Pre-call brief with questions, objections, talking points
+Day 4: "discovery questions for VP Product at fintech"
+       → Tailored SPIN questions + follow-up prompts
 
-Day 5: "analyze competitors in wealth management space"
+Day 5: "prep me for call with Wealthsimple"
+       → Pre-call brief with attendee research, objection handling
+
+Day 6: "analyze competitors in wealth management space"
        → Battlecards for positioning against alternatives
+
+Day 7: "write proposal for Wealthsimple"
+       → Complete proposal with pricing options + case studies
 ```
 
 ## Installation
@@ -137,6 +145,33 @@ Map competitive landscape and create battlecards. Outputs:
 - Battlecards with objection handling
 
 **Example:** `analyze competitors for our CRM product`
+
+---
+
+### Discovery Questions
+Generate tailored discovery questions using SPIN methodology. Outputs:
+- Situation, Problem, Implication, Need-Payoff questions
+- Role-specific and industry-specific questions
+- Follow-up prompts for common answers
+- Red flags to watch for
+- Recommended call structure
+
+**Example:** `discovery questions for VP Marketing at a SaaS company`
+
+---
+
+### Proposal Writer
+Generate complete proposals from call notes or deal context. Outputs:
+- Executive summary
+- Understanding of needs section
+- Solution mapped to requirements
+- Scope of work
+- 3 pricing options (anchored high)
+- Timeline with milestones
+- Relevant case studies
+- Terms and next steps
+
+**Example:** `write proposal for Acme Corp based on our discovery call`
 
 ---
 
