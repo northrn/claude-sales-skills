@@ -82,7 +82,7 @@ The Lead Generation skill creates a complete outreach package:
 ## Example Usage
 
 ```
-> find leads for healthcare companies in Northern Ontario
+> find leads for healthcare companies in the Northeast US
 
 Claude will:
 1. Search for healthcare organizations in the region
